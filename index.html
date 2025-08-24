@@ -1,9 +1,86 @@
-<html> 
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>My Web Page</title>
+    <meta charset="UTF-8">
+    <title>Foreign Price Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- For PWA manifest (to be added) -->
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        section { margin-bottom: 2em; padding: 1em; border: 1px solid #ccc; border-radius: 8px; }
+        label { display: block; margin-bottom: 0.5em; }
+        input[readonly] { background: #f5f5f5; }
+        .remark { font-size: 0.9em; color: #666; margin-left: 1em; }
+    </style>
 </head>
 <body>
-    <h1>Welcome to My Web Page</h1>
-    <p>Hello</p>
+    <h1>Foreign Price Calculator</h1>
+
+    <!-- Input Section -->
+    <section>
+        <h2>Input</h2>
+        <label>
+            A1. VND / KG 價格
+            <input type="number" id="vndPerKg" step="any" min="0" value="0">
+        </label>
+        <label>
+            A2. VND 兌 USD 匯價
+            <input type="number" id="vndToUsd" step="any" min="0" value="0.000038">
+            <span class="remark">Default: 0.000038</span>
+        </label>
+    </section>
+
+    <!-- Output Section -->
+    <section>
+        <h2>Output (Read-only)</h2>
+        <label>
+            B1. USD / KG 價格
+            <input type="number" id="usdPerKg" readonly>
+            <span class="remark">= A1 × A2</span>
+        </label>
+        <label>
+            B2. HKD / KG 價格
+            <input type="number" id="hkdPerKg" readonly>
+            <span class="remark">= B1 × 7.8</span>
+        </label>
+        <label>
+            B3. HKD / 斤
+            <input type="number" id="hkdPerJin" readonly>
+            <span class="remark">= B2 ÷ 1.65345</span>
+        </label>
+    </section>
+
+    <script>
+        // Calculation logic
+        const vndPerKg = document.getElementById('vndPerKg');
+        const vndToUsd = document.getElementById('vndToUsd');
+        const usdPerKg = document.getElementById('usdPerKg');
+        const hkdPerKg = document.getElementById('hkdPerKg');
+        const hkdPerJin = document.getElementById('hkdPerJin');
+
+        function calculate() {
+            const a1 = parseFloat(vndPerKg.value) || 0;
+            const a2 = parseFloat(vndToUsd.value) || 0.000038;
+
+            // B1 = A1 * A2
+            const b1 = a1 * a2;
+            usdPerKg.value = b1.toFixed(4);
+
+            // B2 = B1 * 7.8
+            const b2 = b1 * 7.8;
+            hkdPerKg.value = b2.toFixed(4);
+
+            // B3 = B2 / 1.65345
+            const b3 = b2 / 1.65345;
+            hkdPerJin.value = b3.toFixed(4);
+        }
+
+        vndPerKg.addEventListener('input', calculate);
+        vndToUsd.addEventListener('input', calculate);
+
+        // Initial calculation
+        calculate();
+    </script>
 </body>
 </html>
