@@ -21,12 +21,12 @@
     <section>
         <h2>Input</h2>
         <label>
-            A1. VND / KG 價格
+            A1. VND / KG 價格 
             <input type="number" id="vndPerKg" step="any" min="0" value="0">
         </label>
         <label>
             A2. VND 兌 USD 匯價
-            <input type="number" id="vndToUsd" step="any" min="0" value="0.000038">
+            <input type="number" id="vndToUsd" step="any" min="0" value="0.000038"> <br />
             <span class="remark">Default: 0.000038</span>
         </label>
     </section>
@@ -36,17 +36,20 @@
         <h2>Output (Read-only)</h2>
         <label>
             B1. USD / KG 價格
-            <input type="number" id="usdPerKg" readonly>
+            <input type="number" id="usdPerKg" readonly><br />
+            <span class="remark">Default: 0.000038</span>
             <span class="remark">= A1 × A2</span>
         </label>
         <label>
             B2. HKD / KG 價格
-            <input type="number" id="hkdPerKg" readonly>
+            <input type="number" id="hkdPerKg" readonly><br />
+            <span class="remark">Default: 0.000038</span>
             <span class="remark">= B1 × 7.8</span>
         </label>
         <label>
             B3. HKD / 斤
-            <input type="number" id="hkdPerJin" readonly>
+            <input type="number" id="hkdPerJin" readonly><br />
+            <span class="remark">Default: 0.000038</span>
             <span class="remark">= B2 ÷ 1.65345</span>
         </label>
     </section>
